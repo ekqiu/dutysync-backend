@@ -2,6 +2,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const cors = require("cors");
+const path = require("path");
 require("dotenv").config();
 
 const app = express();
@@ -57,28 +58,28 @@ app.get("/workspaces/:id", async (res, req) => {
   const { id } = req.params;
   const workspace = await Workspace.findById(id);
   res.json(workspace);
-})
+});
 
 app.get("/allocations/:workspace", async (res, req) => {
   const { workspace } = req.params;
   const allocation = await Allocation.findOne({ workspace });
   res.json(allocation);
-})
+});
 
 app.get("/workspaces/:owner", async (res, req) => {
   const { owner } = req.params;
   const allocation = await Allocation.findOne({ owner });
   res.json(allocation);
-})
+});
 
 app.get("/workspaces/:member", async (res, req) => {
   const { member } = req.params;
   const allocation = await Allocation.findOne({ member });
   res.json(allocation);
-})
+});
 
-app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'index.html'));
+app.get("/", (req, res) => {
+  res.sendFile(path.join(__dirname, "index.html"));
 });
 
 app.listen(port, () => {
